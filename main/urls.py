@@ -9,5 +9,4 @@ urlpatterns = [
     path('get-statistics/', get_statistics),
     path('get-info-about_players/', get_info_about_players),
     path('get-about-academy/', get_about_academy),
-    path('add-product/', add_product)
 ]
