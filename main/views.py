@@ -1,8 +1,6 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .serializer import *
-from .forms import *
-from datetime import datetime
 
 @api_view(['GET'])
 def get_info(request):
@@ -83,17 +81,6 @@ def get_shop(request):
     product_ser = ShopSerializer(product, many=True)
     data = {
         "product": product_ser.data
-    }
-    return Response(data)
-
-@api_view(['POST'])
-def add_product(request):
-    product = request.POST.get('product')
-    img_file = request.POST.get('img_file')
-    create_product = Shop.objects.create(product=product, img_file=img_file)
-    create_product_ser = ShopSerializer(create_product)
-    data = {
-        "create_product": create_product_ser.data,
     }
     return Response(data)
 
