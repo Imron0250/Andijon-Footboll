@@ -1,7 +1,8 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .serializer import *
-
+from .forms import *
+from datetime import datetime
 
 @api_view(['GET'])
 def get_info(request):
@@ -17,13 +18,13 @@ def get_info(request):
 
 @api_view(['GET'])
 def get_main_page(request):
-    main_page = Main_pagea.objects.last()
-    main_page_ser = Main_pageSerializer(main_page)
-    match_time = Match_time.objects.all()
-    match_time_ser = Match_timeSerializer(match_time, many=True)
+    banner = News.objects.filter(is_banner=True)
+    banner_ser = NewsSerializer(banner, many=True)
+    match = Match_time.objects.all()
+    match_ser = Match_timeSerializer(match, many=True)
     data = {
-        "main_page": main_page_ser.data,
-        "match_time": match_time_ser.data
+        "banner": banner_ser.data,
+        "match_time": match_ser.data
     }
     return Response(data)
 
@@ -46,18 +47,6 @@ def get_media(request):
     return Response(data)
 
 @api_view(['GET'])
-def get_team_joursey(request):
-    team_joursey = Team_jersey.objects.all()
-    team_joursey_ser = Team_jerseySerializer(team_joursey, many=True)
-    other_forms = Other_forms.objects.all()
-    other_forms_ser = Other_formsSerializer(other_forms, many=True)
-    data = {
-        "team_joursey": team_joursey_ser.data,
-        "other_forms": other_forms_ser.data
-    }
-    return Response(data)
-
-@api_view(['GET'])
 def get_statistics(request):
     statistic = Statistic.objects.last()
     statistic_ser = StatisticSerializer(statistic)
@@ -71,8 +60,8 @@ def get_statistics(request):
 
 @api_view(["GET"])
 def get_info_about_players(request):
-    info_about_player = Info_about_player.objects.all()
-    info_about_player_ser = Info_about_playerSerializer(info_about_player, many=True)
+    info_about_player = Player.objects.all()
+    info_about_player_ser = PlayerSerializer(info_about_player, many=True)
     data = {
         "info_about_players": info_about_player_ser.data
     }
@@ -86,3 +75,35 @@ def get_about_academy(request):
         "about_academy": about_academy_ser.data
     }
     return Response(data)
+
+
+@api_view(['GET'])
+def get_shop(request):
+    product = Shop.objects.all()
+    product_ser = ShopSerializer(product, many=True)
+    data = {
+        "product": product_ser.data
+    }
+    return Response(data)
+
+@api_view(['POST'])
+def add_product(request):
+    product = request.POST.get('product')
+    img_file = request.POST.get('img_file')
+    create_product = Shop.objects.create(product=product, img_file=img_file)
+    create_product_ser = ShopSerializer(create_product)
+    data = {
+        "create_product": create_product_ser.data,
+    }
+    return Response(data)
+
+
+
+
+
+
+
+
+
+
+

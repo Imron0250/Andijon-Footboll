@@ -12,11 +12,6 @@ class Match_timeSerializer(ModelSerializer):
         model = Match_time
         fields = "__all__"
 
-class Main_pageSerializer(ModelSerializer):
-    class Meta:
-        model = Main_pagea
-        fields = "__all__"
-
 class MediaSerializer(ModelSerializer):
     class Meta:
         model = Media
@@ -27,9 +22,9 @@ class NewsSerializer(ModelSerializer):
         model = News
         fields = "__all__"
 
-class Other_formsSerializer(ModelSerializer):
+class ShopSerializer(ModelSerializer):
     class Meta:
-        model = Other_forms
+        model = Shop
         fields = "__all__"
 
 
@@ -50,9 +45,9 @@ class StatisticSerializer(ModelSerializer):
         model = Statistic
         fields = "__all__"
 
-class Info_about_playerSerializer(ModelSerializer):
+class PlayerSerializer(ModelSerializer):
     class Meta:
-        model = Info_about_player
+        model = Player
         fields = "__all__"
 
 class About_academySerializer(ModelSerializer):
